@@ -31,7 +31,7 @@ To use the library, first include it your project using Gradle
     }
 
 	dependencies {
-	        compile 'com.github.Angtrim:Android-Five-Stars-Library:v3.1'
+	        compile 'com.github.mkaflowski:Android-Five-Stars-Library:v3.3'
 	}
 
 
@@ -48,6 +48,7 @@ Example:
         fiveStarsDialog.setRateText("Your custom text")
                 .setTitle("Your custom title")
                 .setForceMode(false)
+                .setStyle(R.style.DialogTheme) // set theme from styles.xml
                 .setUpperBound(2) // Market opened if a rating >= 2 is selected
                 .setNegativeReviewListener(this) // OVERRIDE mail intent for negative review
                 .setReviewListener(this) // Used to listen for reviews (if you want to track them )
