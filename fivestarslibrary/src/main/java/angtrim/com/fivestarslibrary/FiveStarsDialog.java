@@ -19,14 +19,14 @@ import android.widget.TextView;
  */
 public class FiveStarsDialog  implements DialogInterface.OnClickListener{
 
-    private final static String DEFAULT_TITLE = "Rate this app";
-    private final static String DEFAULT_TEXT = "How much do you love our app?";
-    private final static String DEFAULT_POSITIVE = "Ok";
-    private final static String DEFAULT_NEGATIVE = "Not Now";
-    private final static String DEFAULT_NEVER = "Never";
-    private final static String SP_NUM_OF_ACCESS = "numOfAccess";
+    private static String DEFAULT_TITLE = "Rate this app";
+    private static String DEFAULT_TEXT = "How much do you love our app?";
+    private static String DEFAULT_POSITIVE = "Ok";
+    private static String DEFAULT_NEGATIVE = "Not Now";
+    private static String DEFAULT_NEVER = "Never";
+    private static final String SP_NUM_OF_ACCESS = "numOfAccess";
     private static final String SP_DISABLED = "disabled";
-    private static final String TAG = FiveStarsDialog.class.getSimpleName();
+    private static String TAG = FiveStarsDialog.class.getSimpleName();
     private final Context context;
     private boolean isForceMode = false;
     SharedPreferences sharedPrefs;
@@ -48,6 +48,13 @@ public class FiveStarsDialog  implements DialogInterface.OnClickListener{
         this.context = context;
         sharedPrefs = context.getSharedPreferences(context.getPackageName(),Context.MODE_PRIVATE);
         this.supportEmail = supportEmail;
+
+        DEFAULT_TITLE = context.getString(R.string.title_rate);
+        DEFAULT_TEXT = context.getString(R.string.text);
+        DEFAULT_POSITIVE = context.getString(R.string.ok);
+        DEFAULT_NEGATIVE = context.getString(R.string.not_now);
+        DEFAULT_NEVER = context.getString(R.string.never);
+
     }
 
     private void build(){
