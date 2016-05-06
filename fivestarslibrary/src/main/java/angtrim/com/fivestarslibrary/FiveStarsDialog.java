@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.view.ContextThemeWrapper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +20,14 @@ import android.widget.TextView;
 public class FiveStarsDialog implements DialogInterface.OnClickListener {
 
     private static String DEFAULT_TITLE = "Rate this app";
-    private static String DEFAULT_TEXT = "How much do you love our app?";
+    private static String DEFAULT_TEXT = "How much do you like our app?";
     private static String DEFAULT_POSITIVE = "Ok";
-    private static String DEFAULT_NEGATIVE = "Not Now";
+    private static String DEFAULT_NEGATIVE = "Later";
     private static String DEFAULT_NEVER = "Never";
+
     private static final String SP_NUM_OF_ACCESS = "numOfAccess";
     private static final String SP_DISABLED = "disabled";
+
     private static String TAG = FiveStarsDialog.class.getSimpleName();
     private final Context context;
     private boolean isForceMode = false;
@@ -37,6 +40,8 @@ public class FiveStarsDialog implements DialogInterface.OnClickListener {
     private String positive = null;
     private String negative = null;
     private String never = null;
+
+    private int style = 0;
 
     private AlertDialog alertDialog;
     private int upperBound = 4;
@@ -54,15 +59,22 @@ public class FiveStarsDialog implements DialogInterface.OnClickListener {
     }
 
     private void build() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog.Builder builder;
+
+        if (style != 0) {
+            ContextThemeWrapper ctw = new ContextThemeWrapper(context, style);
+            builder = new AlertDialog.Builder(ctw);
+        } else
+            builder = new AlertDialog.Builder(context);
+
         LayoutInflater inflater = LayoutInflater.from(context);
         View dialogView = inflater.inflate(R.layout.stars, null);
 
         String titleToAdd = (title == null) ? DEFAULT_TITLE : title;
         String textToAdd = (rateText == null) ? DEFAULT_TEXT : rateText;
-        String positiveToAdd = (positive ==null) ? DEFAULT_POSITIVE : positive;
-        String negativeToAdd = (negative ==null) ? DEFAULT_NEGATIVE: negative;
-        String neverToAdd = (negative ==null) ? DEFAULT_NEVER : never;
+        String positiveToAdd = (positive == null) ? DEFAULT_POSITIVE : positive;
+        String negativeToAdd = (negative == null) ? DEFAULT_NEGATIVE : negative;
+        String neverToAdd = (negative == null) ? DEFAULT_NEVER : never;
 
         TextView contentTextView = (TextView) dialogView.findViewById(R.id.text_content);
         contentTextView.setText(textToAdd);
@@ -173,6 +185,14 @@ public class FiveStarsDialog implements DialogInterface.OnClickListener {
             editor.apply();
         }
         alertDialog.hide();
+    }
+
+    /**
+     * @param styleR i.e. R.style.LE_THEME
+     */
+    public FiveStarsDialog setStyle(int styleR) {
+        style = styleR;
+        return this;
     }
 
     public FiveStarsDialog setTitle(String title) {
