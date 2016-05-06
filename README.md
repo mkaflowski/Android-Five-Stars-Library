@@ -50,6 +50,7 @@ Example:
                 .setForceMode(false)
                 .setStyle(R.style.DialogTheme) // set theme from styles.xml
                 .setUpperBound(2) // Market opened if a rating >= 2 is selected
+                .setInternational()
                 .setNegativeReviewListener(this) // OVERRIDE mail intent for negative review
                 .setReviewListener(this) // Used to listen for reviews (if you want to track them )
                 .showAfter(0);
